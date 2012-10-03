@@ -1,0 +1,2 @@
+module Cloudstrg
+end
