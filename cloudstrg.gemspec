@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = Cloudstrg::VERSION
   s.authors     = ["Raul Roman-Lopez"]
   s.email       = ["rroman@libresoft.es"]
-  s.homepage    = "TODO"
+  s.homepage    = "http://git.libresoft.es/cloudstrg/"
   s.summary     = "Base API for cloud storage drivers"
   s.description = "Base API for cloud storage drivers."
 
