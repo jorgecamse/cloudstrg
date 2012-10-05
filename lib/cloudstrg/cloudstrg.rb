@@ -20,7 +20,7 @@ module CloudStrg
   # This method returns a list of the available storage drivers.
   #
   def self.driver_list
-    l = Cloudstrglist.find(:all).select('plugin_name')
+    l = Cloudstrglist.select('plugin_name')
     l.sort!
     return l
   end
