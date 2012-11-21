@@ -1,0 +1,12 @@
+class CreateCloudstrgRemoteobjects < ActiveRecord::Migration
+  def change
+    create_table :cloudstrg_remoteobjects do |t|
+      t.integer "#{Cloudstrg.user_class}_id".to_sym
+      t.integer :plugin_id
+      t.string :filename
+      t.string :filehash
+
+      t.timestamps
+    end
+  end
+end

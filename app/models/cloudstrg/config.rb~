@@ -1,0 +1,30 @@
+module Cloudstrg
+  class Config < ActiveRecord::Base
+    attr_accessible :cloudstrgplugin_id, :user_id
+
+    attr_accessor :cloudstrgplugin_name
+    belongs_to :cloudstrgplugin, :class_name => Cloudstrg::Cloudstrgplugin
+
+    attr_accessor :user_email
+    belongs_to :user, :class_name => Cloudstrg.user_class
+    
+    before_save :set_hooks
+
+    private
+      def set_hooks
+        if cloudstrgplugin_name
+          self.cloudstrgplugin = Cloudstrg::Cloudstrgplugin.find_by_plugin_name(cloudstrgplugin_name)
+        else
+          self.cloudstrgplugin = Cloudstrg::Cloudstrgplugin.find(self.cloudstrgplugin_id)
+        end
+        
+        if not self.cloudstrgplugin
+          return false
+        end
+        self.user = Cloudstrg.user_class.constantize.find_by_email(user_email)
+        if not self.user
+          return false
+        end
+      end
+  end
+end

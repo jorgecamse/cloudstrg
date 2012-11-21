@@ -1,0 +1,90 @@
+require_dependency "cloudstrg/application_controller"
+
+module Cloudstrg
+  class RemoteobjectsController < ApplicationController
+    # GET /remoteobjects
+    # GET /remoteobjects.json
+    def index
+      if params.has_key? :plugin_id
+        @remoteobjects = Remoteobject.where :plugin_id => params[:plugin_id]
+      else
+        @remoteobjects = Remoteobject.all
+  
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @remoteobjects }
+      end
+    end
+  
+    # GET /remoteobjects/1
+    # GET /remoteobjects/1.json
+    def show
+      @remoteobject = Remoteobject.find(params[:id])
+  
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @remoteobject }
+      end
+    end
+  
+    # GET /remoteobjects/new
+    # GET /remoteobjects/new.json
+    def new
+      @remoteobject = Remoteobject.new
+  
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @remoteobject }
+      end
+    end
+  
+    # GET /remoteobjects/1/edit
+    def edit
+      @remoteobject = Remoteobject.find(params[:id])
+    end
+  
+    # POST /remoteobjects
+    # POST /remoteobjects.json
+    def create
+      @remoteobject = Remoteobject.new(params[:remoteobject])
+  
+      respond_to do |format|
+        if @remoteobject.save
+          format.html { redirect_to @remoteobject, notice: 'Remoteobject was successfully created.' }
+          format.json { render json: @remoteobject, status: :created, location: @remoteobject }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @remoteobject.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+  
+    # PUT /remoteobjects/1
+    # PUT /remoteobjects/1.json
+    def update
+      @remoteobject = Remoteobject.find(params[:id])
+  
+      respond_to do |format|
+        if @remoteobject.update_attributes(params[:remoteobject])
+          format.html { redirect_to @remoteobject, notice: 'Remoteobject was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @remoteobject.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+  
+    # DELETE /remoteobjects/1
+    # DELETE /remoteobjects/1.json
+    def destroy
+      @remoteobject = Remoteobject.find(params[:id])
+      @remoteobject.destroy
+  
+      respond_to do |format|
+        format.html { redirect_to remoteobjects_url }
+        format.json { head :no_content }
+      end
+    end
+  end
+end

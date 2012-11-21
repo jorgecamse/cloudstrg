@@ -1,0 +1,25 @@
+<%= form_for(@cloudstrgplugin) do |f| %>
+  <% if @cloudstrgplugin.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@cloudstrgplugin.errors.count, "error") %> prohibited this cloudstrgplugin from being saved:</h2>
+
+      <ul>
+      <% @cloudstrgplugin.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :plugin_name %><br />
+    <%= f.text_field :plugin_name %>
+  </div>
+  <div class="field">
+    <%= f.label :version %><br />
+    <%= f.text_field :version %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

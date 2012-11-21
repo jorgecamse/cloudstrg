@@ -4,14 +4,14 @@ module CloudStrg
   # This method returns an instance of an specified driver
   #
   # Params: the "params" variable must contain the following fields
-  #   type: the name of the selected driver.
+  #   plugin_id: the id of the selected driver.
   #   
   # Returns: 
   #   An instance of the specified driver.
   #
   def self.new_driver params
-    type = params[:type]
-    require "#{type}strg"
+    type = Cloudstrg::Cloudstrgplugin.find(params[:plugin_id]).plugin_name
+    require "#{type}strg/#{type}strg"
     return Kernel.const_get("#{type.capitalize}Strg").new(params)
   end
 
@@ -20,7 +20,8 @@ module CloudStrg
   # This method returns a list of the available storage drivers.
   #
   def self.driver_list
-    l = Cloudstrglist.find(:all)
+    l = []
+    Cloudstrg::Cloudstrgplugin.find(:all).each {|plugin| l << [plugin.plugin_name, plugin.id]}
     l.sort!
     return l
   end
@@ -35,9 +36,9 @@ module CloudStrg
     # This method performs the previous configuration that the current driver needs to work.
     #
     # Params: the "params" variable must contain the following fields
-    #   redirect: the name of the selected driver,
-    #   username: the name of the selected driver,
-    #   session: the name of the selected driver.
+    #   redirect: url that we want the application to redirect us before accepting the selected cloud engine terms,
+    #   user: the current user,
+    #   session: the session hash.
     #   
     # Returns: 
     #   This method returns two parameters:
@@ -57,7 +58,7 @@ module CloudStrg
     #   file_content: the content of the file.
     #   
     # Returns: 
-    #   This method returns true if the operation success, otherwise it returns false.
+    #   This method returns the local id of the remote object if the operation success, otherwise it returns false.
     #
     def create_file params
       raise NotImplementedError
@@ -92,7 +93,7 @@ module CloudStrg
     #   file_content: the content of the file.
     #   
     # Returns: 
-    #   This method returns true if the operation success, otherwise it returns false.
+    #   This method returns the local id of the remote object if the operation success, otherwise it returns false.
     #
     def update_file params
       raise NotImplementedError
@@ -118,5 +119,46 @@ module CloudStrg
       raise NotImplementedError
     end
 
+    def save_remoteobject(user, filename, filecontent, file_remote_id)
+      #plugin_name = self.class.to_s.split('Strg')[0].downcase
+      
+      file = Cloudstrg::Remoteobject.where(:user_id => user, :cloudstrgplugin_id => user.cloudstrgconfig.cloudstrgplugin, :filename => filename)
+      if not file.empty?
+        file = file[0]
+        file.filehash = filecontent.hash.to_s
+      else
+        file = user.cloudstrgconfig.cloudstrgplugin.remoteobjects.build(:user_id => user, :filename => filename, :filehash => filecontent.hash.to_s, :file_remote_id => file_remote_id)
+      end
+      file.save
+      return file
+    end
+
+    def get_remoteobject(ro_id)
+      return Cloudstrg::Remoteobject.find(ro_id)
+    end 
+
+    def delete_remoteobject(ro_id)
+      return Cloudstrg::Remoteobject.find(ro_id).destroy
+    end
+
+#    def check_hash(username, filename, filecontent)
+#      plugin_name = self.class.to_s.split('Strg')[0].downcase
+#      
+#      l = Cloudstrg::Remoteobject.where(:username => username, :strgdriver => plugin_name, :filename => filename)
+#      if l.size == 1
+#        return l[0].filehash == filecontent.hash.to_s
+#      else
+#        false
+#      end
+#    end
+
   end
+
+  class RONotConfigured < Exception
+  end
+
+  class ROValidationRequired < Exception
+  end
+
+
 end

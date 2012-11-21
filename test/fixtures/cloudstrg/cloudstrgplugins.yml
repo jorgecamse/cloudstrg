@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  plugin_name: MyString
+  version: MyString
+
+two:
+  plugin_name: MyString
+  version: MyString

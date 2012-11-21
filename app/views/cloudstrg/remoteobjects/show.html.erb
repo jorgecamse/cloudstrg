@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @remoteobject.user_id %>
+</p>
+
+<p>
+  <b>Plugin:</b>
+  <%= @remoteobject.plugin_id %>
+</p>
+
+<p>
+  <b>Filename:</b>
+  <%= @remoteobject.filename %>
+</p>
+
+<p>
+  <b>Filehash:</b>
+  <%= @remoteobject.filehash %>
+</p>
+
+
+<%= link_to 'Edit', edit_remoteobject_path(@remoteobject) %> |
+<%= link_to 'Back', remoteobjects_path %>

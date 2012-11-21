@@ -1,0 +1,29 @@
+<h1>Listing remoteobjects</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Plugin</th>
+    <th>Filename</th>
+    <th>Filehash</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @remoteobjects.each do |remoteobject| %>
+  <tr>
+    <td><%= remoteobject.user_id %></td>
+    <td><%= remoteobject.plugin_id %></td>
+    <td><%= remoteobject.filename %></td>
+    <td><%= remoteobject.filehash %></td>
+    <td><%= link_to 'Show', remoteobject %></td>
+    <td><%= link_to 'Edit', edit_remoteobject_path(remoteobject) %></td>
+    <td><%= link_to 'Destroy', remoteobject, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Remoteobject', new_remoteobject_path %>

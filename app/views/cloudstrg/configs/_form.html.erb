@@ -1,0 +1,26 @@
+<%= form_for(@config) do |f| %>
+  <% if @config.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@config.errors.count, "error") %> prohibited this config from being saved:</h2>
+
+      <ul>
+      <% @config.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<!--
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.number_field :user_id %>
+  </div>
+-->
+  <div class="field">
+    <%= f.label :cloudstrgplugin_id, "Choose what driver would you like to use:" %><br />
+    <%= f.select :cloudstrgplugin_id, @driver_list %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

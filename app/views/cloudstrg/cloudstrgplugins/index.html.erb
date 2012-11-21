@@ -1,0 +1,25 @@
+<h1>Listing cloudstrgplugins</h1>
+
+<table>
+  <tr>
+    <th>Plugin name</th>
+    <th>Version</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @cloudstrgplugins.each do |cloudstrgplugin| %>
+  <tr>
+    <td><%= cloudstrgplugin.plugin_name %></td>
+    <td><%= cloudstrgplugin.version %></td>
+    <td><%= link_to 'Show', cloudstrgplugin %></td>
+    <td><%= link_to 'Edit', edit_cloudstrgplugin_path(cloudstrgplugin) %></td>
+    <td><%= link_to 'Destroy', cloudstrgplugin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Cloudstrgplugin', new_cloudstrgplugin_path %>

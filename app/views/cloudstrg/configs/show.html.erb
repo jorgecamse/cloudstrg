@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @config.user.email %>
+</p>
+
+<p>
+  <b>Plugin:</b>
+  <%= @config.cloudstrgplugin.plugin_name %>
+</p>
+
+
+<%= link_to 'Edit', edit_config_path(@config) %> |
+<%= link_to 'Back', configs_path %>

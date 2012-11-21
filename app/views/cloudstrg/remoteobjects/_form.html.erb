@@ -1,0 +1,33 @@
+<%= form_for(@remoteobject) do |f| %>
+  <% if @remoteobject.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@remoteobject.errors.count, "error") %> prohibited this remoteobject from being saved:</h2>
+
+      <ul>
+      <% @remoteobject.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :plugin_id %><br />
+    <%= f.number_field :plugin_id %>
+  </div>
+  <div class="field">
+    <%= f.label :filename %><br />
+    <%= f.text_field :filename %>
+  </div>
+  <div class="field">
+    <%= f.label :filehash %><br />
+    <%= f.text_field :filehash %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
