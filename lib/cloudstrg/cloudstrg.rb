@@ -127,7 +127,7 @@ module CloudStrg
         file = file[0]
         file.filehash = filecontent.hash.to_s
       else
-        file = user.cloudstrgconfig.cloudstrgplugin.remoteobjects.build(:user_id => user, :filename => filename, :filehash => filecontent.hash.to_s, :file_remote_id => file_remote_id)
+        file = user.cloudstrgconfig.cloudstrgplugin.remotes.build(:user_id => user, :filename => filename, :filehash => filecontent.hash.to_s, :file_remote_id => file_remote_id)
       end
       file.save
       return file
