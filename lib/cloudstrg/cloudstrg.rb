@@ -120,14 +120,16 @@ module CloudStrg
     end
 
     def save_remoteobject(user, filename, filecontent, file_remote_id)
-      #plugin_name = self.class.to_s.split('Strg')[0].downcase
+      plugin_name = self.class.to_s.split('Strg')[0].downcase
+      puts plugin_name
+      plugin = Cloudstrg::Cloudstrgplugin.find_by_plugin_name(plugin_name)
       
-      file = Cloudstrg::Remoteobject.where(:user_id => user, :cloudstrgplugin_id => user.cloudstrgconfig.cloudstrgplugin, :filename => filename)
+      file = Cloudstrg::Remoteobject.where(:user_id => user, :cloudstrgplugin_id => plugin, :filename => filename)
       if not file.empty?
         file = file[0]
         file.filehash = filecontent.hash.to_s
       else
-        file = user.cloudstrgconfig.cloudstrgplugin.remotes.build(:user_id => user, :filename => filename, :filehash => filecontent.hash.to_s, :file_remote_id => file_remote_id)
+        file = plugin.remotes.build(:user_id => user, :filename => filename, :filehash => filecontent.hash.to_s, :file_remote_id => file_remote_id)
       end
       file.save
       return file
