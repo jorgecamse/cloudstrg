@@ -4,8 +4,6 @@ module Cloudstrg
 
     belongs_to :cloudstrgplugin, :class_name => Cloudstrg::Cloudstrgplugin
 
-    has_many :remoteobjects, :class_name => Cloudstrg::Remoteobject, :dependent => :destroy
-
     belongs_to :user, :class_name => Cloudstrg.user_class
   end
 end
