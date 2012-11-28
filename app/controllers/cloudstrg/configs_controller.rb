@@ -9,6 +9,9 @@ module Cloudstrg
     # GET /configs.json
     def index
       @config = @user.cloudstrgconfig
+      if params.has_key? :redirection_url
+        @redirection_url = params[:redirection_url]
+      end
   
       respond_to do |format|
         format.html # index.html.erb
