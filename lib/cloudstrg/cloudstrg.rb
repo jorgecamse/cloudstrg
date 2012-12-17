@@ -119,6 +119,16 @@ module CloudStrg
       raise NotImplementedError
     end
 
+    ###
+    # This method check if a referer is valid
+    #
+    # Params: 
+    #   referer: a string containing the request referer
+    #
+    def check_referer referer
+      raise NotImplementedError
+    end
+
     def save_remoteobject(user, filename, filecontent, file_remote_id)
       plugin_name = self.class.to_s.split('Strg')[0].downcase
       puts plugin_name
