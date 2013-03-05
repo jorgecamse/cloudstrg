@@ -118,6 +118,20 @@ module CloudStrg
     def list_files
       raise NotImplementedError
     end
+  
+    ###
+    # This method allows a user to share a file with other users.
+    #
+    # Params: the "params" variable must contain the following fields
+    #   share_user: the username which we want the file shared with,
+    #   file_id: the id of the file.
+    #   
+    # Returns: 
+    #   This method returns non-nil data if success.
+    #
+    def share_file params
+      raise NotImplementedError
+    end
 
     ###
     # This method check if a referer is valid

@@ -118,6 +118,30 @@ module CloudStrg
     def list_files
       raise NotImplementedError
     end
+  
+    ###
+    # This method allows a user to share a file with other users.
+    #
+    # Params: the "params" variable must contain the following fields
+    #   share_user: the username which we want the file shared with,
+    #   file_id: the id of the file.
+    #   
+    # Returns: 
+    #   This method returns the local id of the remote object if the operation success, otherwise it returns false.
+    #
+    def share_file params
+      raise NotImplementedError
+    end
+
+    ###
+    # This method check if a referer is valid
+    #
+    # Params: 
+    #   referer: a string containing the request referer
+    #
+    def check_referer referer
+      raise NotImplementedError
+    end
 
     def save_remoteobject(user, filename, filecontent, file_remote_id)
       plugin_name = self.class.to_s.split('Strg')[0].downcase
