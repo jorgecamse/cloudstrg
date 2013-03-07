@@ -148,12 +148,12 @@ module CloudStrg
       puts plugin_name
       plugin = Cloudstrg::Cloudstrgplugin.find_by_plugin_name(plugin_name)
       
-      file = Cloudstrg::Remoteobject.where(:user_id => user, :cloudstrgplugin_id => plugin, :filename => filename)
+      file = Cloudstrg::Remoteobject.where(:user_id => user.id, :cloudstrgplugin_id => plugin.id, :filename => filename)
       if not file.empty?
         file = file[0]
         file.filehash = filecontent.hash.to_s
       else
-        file = plugin.remotes.build(:user_id => user, :filename => filename, :filehash => filecontent.hash.to_s, :file_remote_id => file_remote_id)
+        file = plugin.remotes.build(:user_id => user.id, :filename => filename, :filehash => filecontent.hash.to_s, :file_remote_id => file_remote_id)
       end
       file.save
       return file

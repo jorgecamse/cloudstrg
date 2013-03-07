@@ -127,7 +127,7 @@ module CloudStrg
     #   file_id: the id of the file.
     #   
     # Returns: 
-    #   This method returns the local id of the remote object if the operation success, otherwise it returns false.
+    #   This method returns non-nil data if success.
     #
     def share_file params
       raise NotImplementedError
@@ -148,7 +148,7 @@ module CloudStrg
       puts plugin_name
       plugin = Cloudstrg::Cloudstrgplugin.find_by_plugin_name(plugin_name)
       
-      file = Cloudstrg::Remoteobject.where(:user_id => user, :cloudstrgplugin_id => plugin, :filename => filename)
+      file = Cloudstrg::Remoteobject.where(:user_id => user.id, :cloudstrgplugin_id => plugin, :filename => filename)
       if not file.empty?
         file = file[0]
         file.filehash = filecontent.hash.to_s

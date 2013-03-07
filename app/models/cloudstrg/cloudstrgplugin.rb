@@ -2,7 +2,7 @@ module Cloudstrg
   class Cloudstrgplugin < ActiveRecord::Base
     attr_accessible :plugin_name, :version
 
-    has_one :cloudstrgconfig, :class_name => Cloudstrg::Config, :dependent => :destroy
+    has_many :cloudstrgconfig, :class_name => Cloudstrg::Config, :dependent => :destroy
     has_many :remotes, :class_name => Cloudstrg::Remoteobject, :dependent => :destroy
   end
 end
