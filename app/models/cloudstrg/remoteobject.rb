@@ -5,5 +5,7 @@ module Cloudstrg
     belongs_to :cloudstrgplugin, :class_name => Cloudstrg::Cloudstrgplugin
 
     belongs_to :user, :class_name => Cloudstrg.user_class
+
+    has_many :gdrivestrgpermissions, :class_name => Gdrivestrg::PermissionId, :dependent => :destroy
   end
 end

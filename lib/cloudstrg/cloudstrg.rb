@@ -124,12 +124,29 @@ module CloudStrg
     #
     # Params: the "params" variable must contain the following fields
     #   share_user: the username which we want the file shared with,
-    #   file_id: the id of the file.
+    #   file_id: the id of the file,
+    #   local_file_id: the local id of the file,
+    #   user_id: the id of the  user we want to grant.
     #   
     # Returns: 
     #   This method returns non-nil data if success.
     #
     def share_file params
+      raise NotImplementedError
+    end
+  
+    ###
+    # This method allows a user to revoke a file's permission to other users.
+    #
+    # Params: the "params" variable must contain the following fields
+    #   file_id: the id of the file,
+    #   local_file_id: the local id of the file,
+    #   user_id: the id of the target user.
+    #   
+    # Returns: 
+    #   This method returns non-nil data if success.
+    #
+    def unshare_file params
       raise NotImplementedError
     end
 

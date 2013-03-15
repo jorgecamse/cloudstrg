@@ -124,12 +124,30 @@ module CloudStrg
     #
     # Params: the "params" variable must contain the following fields
     #   share_user: the username which we want the file shared with,
-    #   file_id: the id of the file.
+    #   file_id: the id of the file,
+    #   local_file_id: the local id of the file,
+    #   user_id: the id of the  user we want to grant.
     #   
     # Returns: 
     #   This method returns non-nil data if success.
     #
     def share_file params
+      raise NotImplementedError
+    end
+  
+    ###
+    # This method allows a user to revoke a file's permission to other users.
+    #
+    # Params: the "params" variable must contain the following fields
+    #   permission_id: the id of the permission we want to revoke,
+    #   file_id: the id of the file,
+    #   local_file_id: the local id of the file,
+    #   user_id: the id of the target user.
+    #   
+    # Returns: 
+    #   This method returns non-nil data if success.
+    #
+    def unshare_file params
       raise NotImplementedError
     end
 
@@ -148,12 +166,12 @@ module CloudStrg
       puts plugin_name
       plugin = Cloudstrg::Cloudstrgplugin.find_by_plugin_name(plugin_name)
       
-      file = Cloudstrg::Remoteobject.where(:user_id => user.id, :cloudstrgplugin_id => plugin, :filename => filename)
+      file = Cloudstrg::Remoteobject.where(:user_id => user.id, :cloudstrgplugin_id => plugin.id, :filename => filename)
       if not file.empty?
         file = file[0]
         file.filehash = filecontent.hash.to_s
       else
-        file = plugin.remotes.build(:user_id => user, :filename => filename, :filehash => filecontent.hash.to_s, :file_remote_id => file_remote_id)
+        file = plugin.remotes.build(:user_id => user.id, :filename => filename, :filehash => filecontent.hash.to_s, :file_remote_id => file_remote_id)
       end
       file.save
       return file
