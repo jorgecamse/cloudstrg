@@ -63,6 +63,21 @@ module CloudStrg
     def create_file params
       raise NotImplementedError
     end
+  
+    ###
+    # This method performs the creation of a file.
+    #
+    # Params: the "params" variable must contain the following fields
+    #   filename: the name of the file to create,
+    #   file: the file to upload.
+    #   mimetype: the mimetype of the file,
+    #   
+    # Returns: 
+    #   This method returns the local id of the remote object if the operation success, otherwise it returns false.
+    #
+    def create_generic_file params
+      raise NotImplementedError
+    end
 
     #def create_folder params
     #  raise NotImplementedError
@@ -136,6 +151,21 @@ module CloudStrg
     end
   
     ###
+    # This method allows a user to share a file with anyone.
+    #
+    # Params: the "params" variable must contain the following fields
+    #   file_id: the id of the file,
+    #   local_file_id: the local id of the file,
+    #   user_id: the id of the  user we want to grant.
+    #   
+    # Returns: 
+    #   This method returns non-nil data if success.
+    #
+    def share_public_file params
+      raise NotImplementedError
+    end
+  
+    ###
     # This method allows a user to revoke a file's permission to other users.
     #
     # Params: the "params" variable must contain the following fields
@@ -165,7 +195,7 @@ module CloudStrg
       puts plugin_name
       plugin = Cloudstrg::Cloudstrgplugin.find_by_plugin_name(plugin_name)
       
-      file = Cloudstrg::Remoteobject.where(:user_id => user.id, :cloudstrgplugin_id => plugin.id, :filename => filename)
+      file = Cloudstrg::Remoteobject.where(:user_id => user.id, :cloudstrgplugin_id => plugin.id, :file_remote_id => file_remote_id)
       if not file.empty?
         file = file[0]
         file.filehash = filecontent.hash.to_s
